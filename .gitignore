@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.coverage
+.pytest_cache
+htmlcov
+Assignment9_Report.pages
+ReflectionModule9.txt
+Module9Discussion.txt
