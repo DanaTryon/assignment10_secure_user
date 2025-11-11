@@ -1,9 +1,11 @@
 name: CI/CD
+
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,9 +15,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: myappdb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: fastapi_db
         ports:
           - 5432:5432
         options: >-
@@ -23,6 +25,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/fastapi_db
+
     steps:
       - uses: actions/checkout@v3
 
@@ -32,7 +37,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest tests/unit/ --cov=src --junitxml=test-results/junit.xml
+          pytest tests/unit/ --cov=app --junitxml=test-results/junit.xml
           pytest tests/integration/
           pytest tests/e2e/
 
@@ -53,6 +58,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
+
   deploy:
     needs: security
     runs-on: ubuntu-latest
