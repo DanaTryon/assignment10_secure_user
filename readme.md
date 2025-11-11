@@ -104,13 +104,18 @@ This project uses GitHub Actions to automate:
 
 ## 📦 Deployment
 
-To build and run locally:
+This application is containerized with Docker and available on Docker Hub:
+
+👉 [View on Docker Hub](https://hub.docker.com/repository/docker/danatryon/assignment10_secure_user/general)
+
+To pull the image:
 
 ```bash
-docker build -t fastapi-app .
-docker run -p 8000:8000 fastapi-app
+docker pull danatryon/assignment10_secure_user:latest
 ```
-
-Access the app at: `http://localhost:8000`
+to run locally
+```bash
+docker run -p 8000:8000 danatryon/assignment10_secure_user:latest
+```
 
 ---
